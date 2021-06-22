@@ -1,1 +1,7 @@
-{}
+{
+    "Address": "AccountId",
+    "LookupSource": "AccountId",
+    "Kitty": "([u8; 16])",
+    "AllKittiesIndex": "u32"
+  }
+  
