@@ -1,7 +1,23 @@
 {
-    "Address": "AccountId",
+  "AccountInfo":  {
+    "nonce": "Index",
+    "consumers": "RefCount",
+    "providers": "RefCount",
+    "data": "AccountData"
+  },
+    "Address": "MultiAddress",
+    "KittyId": "Hash",
     "LookupSource": "AccountId",
-    "Kitty": "([u8; 16])",
-    "AllKittiesIndex": "u32"
-  }
-  
+    "Gender": {
+      "_enum": [
+        "male",
+        "female"
+      ]
+    },
+    "Kitty": {
+      "id": "H256",
+      "dna": "H256",
+      "price": "Balance",
+      "gender": "Gender"
+    }
+}

@@ -11,12 +11,13 @@ function Main (props) {
   // The transaction submission status
   const [status, setStatus] = useState('');
 
-  // The currently stored value
+
+  // The currently stored value.
   const [currentValue, setCurrentValue] = useState(0);
   const [formValue, setFormValue] = useState(0);
 
+  
   useEffect(() => {
-    let unsubscribe;
     api.query.templateModule.something(newValue => {
       // The storage value is an Option<u32>
       // So we have to check whether it is None first
@@ -33,6 +34,8 @@ function Main (props) {
 
     return () => unsubscribe && unsubscribe();
   }, [api.query.templateModule]);
+
+
 
   return (
     <Grid.Column width={8}>

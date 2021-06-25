@@ -63,6 +63,10 @@ function Main () {
             <BlockNumber finalized />
           </Grid.Row>
           <Grid.Row>
+            <Interactor accountPair={accountPair} />
+            <Events />
+          </Grid.Row>
+          <Grid.Row>
             <Kitties accountPair={accountPair} />
           </Grid.Row>
           <Grid.Row stretched>
@@ -71,10 +75,6 @@ function Main () {
           <Grid.Row>
             <Transfer accountPair={accountPair} />
             <Upgrade accountPair={accountPair} />
-          </Grid.Row>
-          <Grid.Row>
-            <Interactor accountPair={accountPair} />
-            <Events />
           </Grid.Row>
           <Grid.Row>
             <TemplateModule accountPair={accountPair} />

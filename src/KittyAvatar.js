@@ -98,7 +98,8 @@ const dnaToAttributes = dna => {
 const KittyAvatar = props => {
   const outerStyle = { height: '160px', position: 'relative', width: '50%' };
   const innerStyle = { height: '150px', position: 'absolute', top: '3%', left: '50%' };
-  const { dna } = props;
+  //const { dna } = props;
+  const dna = 0xc777829f8feaa68c60f99659ef4bbeacc507805f5db3d678de53153f4a88004a;
 
   if (!dna) return null;
 
