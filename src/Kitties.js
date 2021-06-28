@@ -17,6 +17,9 @@ export default function Kitties(props) {
   const [kitties, setKitties] = useState([]);
   const [status, setStatus] = useState("");
 
+  // Will be an array of Kitty objects.
+  const [kittiesObject, setKittiesObject] = useState([]);
+
   // Get Kitty object.
   const [kittyCnt, setKittyCnt] = useState(0);
 
@@ -45,32 +48,8 @@ export default function Kitties(props) {
             );
             // Fetching all kitties based on the kitty key;
             api.query.substrateKitties.kitties.multi(keys, (kittyInfo) => {
-              kittyInfo.forEach((kitty, ind) => {
-                console.log(
-                  `Kitty ${ind}| id: ${kitty.id}, dna: ${kitty.dna}, price: ${kitty.price}, gender: ${kitty.gender}`
-                );
 
-                // Set Kitty DNA.
-                (unsubDnas = setKittyDNAs(kitty.dna)),
-                  // Set Kitty gender.
-                  (unsubGender = setKittyGender(kitty.gender)),
-                  console.log(`Gender check: ${kitty.gender}`); // debugging.
-
-                // Get Kitty prices.
-                unsubPrices = setKittyPrices(kitty.price);
-
-                const kitties = kittyIndices.map((ind) => ({
-                  id: ind,
-                  dna: kitty.dna,
-                  price: kitty.price,
-                  gender: kitty.gender,
-                }));
-                console.log(
-                  `Kitty check #1: ${kitties.id}| dna: ${kitties.dna}, owner: ${kitties.owner}, price: ${kitties.price}, gender: ${kitties.gender}`
-                );
-              });
-
-              setKitties(kitties);
+              setKitties(kittyInfo);
             });
 
             // Get owners.
@@ -86,37 +65,37 @@ export default function Kitties(props) {
 
     // return the unsubscription cleanup functions.
     return () => {
-      unsubDnas && unsubDnas();
-      unsubOwners && unsubOwners();
-      unsubPrices && unsubPrices();
-      unsubGender && unsubGender();
+      // 
+      
     };
   };
 
   const populateKitties = () => {
     const kittyIndices = [...Array(kittyCnt).keys()];
-    const kitties = kittyIndices.map((ind) => ({
+    const kittiesArray = kittyIndices.map((ind) => ({
       id: ind,
-      dna: kittyDNAs[ind],
+      dna: kitties[ind].dna,
       owner: kittyOwners[ind],
-      price: kittyPrices[ind],
-      gender: kittyGender[ind],
+      price: kitties[ind].price.toHuman(),
+      gender: kitties[ind].gender.isMale ? "Male": "Female" 
     }));
-    console.log(
-      `Kitty check #2: ${kitties.id}| dna: ${kitties.dna}, owner: ${kitties.owner}, price: ${kitties.price}, gender: ${kitties.gender}`
-    );
 
-    setKitties(kitties);
+    console.log(
+      "Kitties array", kittiesArray
+    )
+
+    setKittiesObject(kittiesArray);
   };
 
   useEffect(fetchKittyCnt, [api, keyring]);
-  useEffect(populateKitties, [kittyDNAs, kittyOwners]);
+  useEffect(populateKitties, [kittyOwners]);
+  useEffect(populateKitties, [kitties]);
 
   return (
     <Grid.Column width={16}>
       <h1>Substrate Kitties</h1>
       <KittyCards
-        kitties={kitties}
+        kitties={kittiesObject}
         accountPair={accountPair}
         setStatus={setStatus}
       />

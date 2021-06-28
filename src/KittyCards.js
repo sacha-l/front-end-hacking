@@ -77,9 +77,9 @@ const TransferModal = (props) => {
 
 const KittyCard = (props) => {
   const { kitty, accountPair, setStatus } = props;
-  const { id = null, dna = null, price = null, gender = null } = kitty;
-  // const displayDna = dna && dna.join(", ");
-  const displayPrice = price || "Not for sale";
+  const { id = null, dna = null, owner = null, price = null, gender = null } = kitty;
+  const displayDna = dna && dna.join(", ");
+  const displayPrice = price === 0 ? "Not for sale" : price.toString(); // || "Not for sale";
   const displayId = id === null ? "" : id < 10 ? `0${id}` : id.toString();
   const isSelf = accountPair.address === kitty.owner;
 
@@ -94,17 +94,17 @@ const KittyCard = (props) => {
       <Card.Content>
         <Card.Header>Kitty ID : {displayId}</Card.Header>
         <Card.Meta style={{ overflowWrap: "break-word" }}>
-          Genetic Information: <br />
+          <strong>Gene sequence:</strong><br />
           {dna}
         </Card.Meta>
         <Card.Description>
           <p style={{ overflowWrap: "break-word" }}>
-            Owner :<br />
-            {kitty.owner}
+            <strong>Owner:</strong><br />
+            {owner}
           </p>
-          <p>{displayPrice}</p>
+          <p><strong>Price:</strong> {displayPrice}</p>
           <p style={{ overflowWrap: "break-word" }}>
-            Gender: {kitty.gender}
+            Gender: {gender}
           </p>          
         </Card.Description>
       </Card.Content>
