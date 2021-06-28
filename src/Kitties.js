@@ -65,8 +65,9 @@ export default function Kitties(props) {
 
     // return the unsubscription cleanup functions.
     return () => {
-      // 
-      
+      // unsubDnas && unsubDnas();
+      // unsubOwners && unsubOwners();
+      // unsubGender && unsubGender();
     };
   };
 
@@ -74,6 +75,7 @@ export default function Kitties(props) {
     const kittyIndices = [...Array(kittyCnt).keys()];
     const kittiesArray = kittyIndices.map((ind) => ({
       id: ind,
+      hash: kittyIndices[kittyCnt],
       dna: kitties[ind].dna,
       owner: kittyOwners[ind],
       price: kitties[ind].price.toHuman(),

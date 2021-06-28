@@ -77,11 +77,12 @@ const TransferModal = (props) => {
 
 const KittyCard = (props) => {
   const { kitty, accountPair, setStatus } = props;
-  const { id = null, dna = null, owner = null, price = null, gender = null } = kitty;
+  const { id = null, hash = null, dna = null, owner = null, price = null, gender = null } = kitty;
   const displayDna = dna && dna.join(", ");
-  const displayPrice = price === 0 ? "Not for sale" : price.toString(); // || "Not for sale";
+  const displayPrice = price === null ? price.toString() : "Not for sale"; // || "Not for sale";
   const displayId = id === null ? "" : id < 10 ? `0${id}` : id.toString();
   const isSelf = accountPair.address === kitty.owner;
+  const hashId = hash === null ? "fixme" : kitty.hash.toString;
 
   return (
     <Card>
@@ -92,10 +93,10 @@ const KittyCard = (props) => {
       )}
       <KittyAvatar dna={dna} />
       <Card.Content>
-        <Card.Header>Kitty ID : {displayId}</Card.Header>
+        <Card.Header>Kitty: {displayId}</Card.Header>
         <Card.Meta style={{ overflowWrap: "break-word" }}>
           <strong>Gene sequence:</strong><br />
-          {dna}
+          {displayDna}
         </Card.Meta>
         <Card.Description>
           <p style={{ overflowWrap: "break-word" }}>
@@ -104,8 +105,11 @@ const KittyCard = (props) => {
           </p>
           <p><strong>Price:</strong> {displayPrice}</p>
           <p style={{ overflowWrap: "break-word" }}>
-            Gender: {gender}
-          </p>          
+            <strong>Gender:</strong> {gender}
+          </p> 
+          <p style={{ overflowWrap: "break-word" }}>
+            <strong>ID:</strong> {hashId}
+          </p>
         </Card.Description>
       </Card.Content>
       <Card.Content extra style={{ textAlign: "center" }}>
